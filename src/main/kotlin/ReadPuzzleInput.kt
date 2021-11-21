@@ -5,7 +5,7 @@ fun readIntListFromPath(path: Path): List<Int> {
     return Files.readAllLines(path).map { it.toInt() }
 }
 
-fun readStringListFromFile(path: Path): List<String> {
+fun readStringListFromPath(path: Path): List<String> {
     return Files.readAllLines(path)
 }
 
