@@ -23,4 +23,13 @@ class Day1Tests {
         val greaterCount = countGreaterMeasurements(intList)
         assertEquals(1559, greaterCount)
     }
+
+    @Test
+    @DisplayName("Should have 5 sums")
+    fun should_have_five_greater_sums() {
+        val path = Paths.get("src/test/kotlin/Day1Small.txt")
+        val intList = readIntListFromPath(path)
+        val greaterCount = countGreaterWindows(intList)
+        assertEquals(5, greaterCount)
+    }
 }

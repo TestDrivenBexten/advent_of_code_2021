@@ -10,3 +10,14 @@ fun countGreaterMeasurements(measureList: List<Int>): Int {
     }
     return greaterCount
 }
+
+fun countGreaterWindows(measureList: List<Int>): Int {
+    val windowList = mutableListOf<Int>()
+    for (x in 2 until measureList.size) {
+        val m1 = measureList[x - 2]
+        val m2 = measureList[x - 1]
+        val m3 = measureList[x]
+        windowList.add(m1 + m2 + m3)
+    }
+    return countGreaterMeasurements(windowList)
+}
