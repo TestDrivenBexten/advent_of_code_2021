@@ -32,4 +32,13 @@ class Day1Tests {
         val greaterCount = countGreaterWindows(intList)
         assertEquals(5, greaterCount)
     }
+
+    @Test
+    @DisplayName("Should count correct number of sums")
+    fun should_have_correct_count_sums() {
+        val path = Paths.get("src/test/kotlin/Day1Big.txt")
+        val intList = readIntListFromPath(path)
+        val greaterCount = countGreaterWindows(intList)
+        assertEquals(1600, greaterCount)
+    }
 }
