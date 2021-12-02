@@ -14,4 +14,13 @@ class Day1Tests {
         val greaterCount = countGreaterMeasurements(intList)
         assertEquals(7, greaterCount)
     }
+
+    @Test
+    @DisplayName("Should count correct number of measurements")
+    fun should_have_correct_count_measurements() {
+        val path = Paths.get("src/test/kotlin/Day1Big.txt")
+        val intList = readIntListFromPath(path)
+        val greaterCount = countGreaterMeasurements(intList)
+        assertEquals(1559, greaterCount)
+    }
 }
