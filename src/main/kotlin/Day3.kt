@@ -3,14 +3,19 @@ import kotlin.math.pow
 typealias BitList = List<Int>
 typealias BinaryList = List<BitList>
 
-private fun findCommonBitList(binaryList: BinaryList): BitList {
-    val numberCount = binaryList.size
+private fun findColumnBitList(binaryList: BinaryList): List<BitList> {
     val numberLength = binaryList[0].size
     val columnBitList = (0 until numberLength).map { index ->
         binaryList.map {
             binaryNumber -> binaryNumber[index]
         }
     }
+    return columnBitList
+}
+
+private fun findCommonBitList(binaryList: BinaryList): BitList {
+    val numberCount = binaryList.size
+    val columnBitList = findColumnBitList(binaryList)
     val commonBitList = columnBitList.map {
         val zeroCount = it.count { bit -> bit == 0 }
         val oneCount = numberCount - zeroCount
@@ -35,4 +40,23 @@ fun calculatePowerConsumption(binaryList: BinaryList): Int {
     val gammaRate = binaryToDecimal(commonBitList)
     val epsilonRate = binaryToDecimal(infrequentBitList)
     return gammaRate * epsilonRate
+}
+
+private fun calculateOxygenRating(binaryList: BinaryList): Int {
+    val commonBitList = findCommonBitList(binaryList)
+    val columnBitList = findColumnBitList(binaryList)
+
+    return 0
+}
+
+private fun calculateScrubberRating(bitList: BitList): Int {
+    return 0
+}
+
+fun calculateLifeSupportRating(binaryList: BinaryList): Int {
+    val commonBitList = findCommonBitList(binaryList)
+    val infrequentBitList = commonBitList.map { if (it == 0) 1 else 0 }
+    val oxygenRating = calculateOxygenRating(binaryList)
+    val scrubberRating = calculateScrubberRating(infrequentBitList)
+    return oxygenRating + scrubberRating
 }

@@ -29,4 +29,14 @@ class Day3Tests {
         val powerConsumption = calculatePowerConsumption(binaryList)
         assertEquals(3895776, powerConsumption)
     }
+
+    @Test
+    @DisplayName("Should determine life support rating from 12 5-bit numbers")
+    fun should_find_life_support_for_12_5_bit_numbers(){
+        val path = Paths.get("src/test/kotlin/Day3Small.txt")
+        val stringList = readStringListFromPath(path)
+        val binaryList = stringList.map { parseBinary(it) }
+        val powerConsumption = calculateLifeSupportRating(binaryList)
+        assertEquals(230, powerConsumption)
+    }
 }
