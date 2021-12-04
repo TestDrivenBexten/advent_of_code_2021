@@ -6,6 +6,7 @@ enum class CommandType {
 
 data class SubmarineCommand(val commandType: CommandType, val magnitude: Int)
 data class Position(val horizontal: Int, val depth: Int)
+data class AimPosition(val aim: Int, val position: Position)
 
 private fun executeCommand(position: Position,
                            command: SubmarineCommand): Position {
