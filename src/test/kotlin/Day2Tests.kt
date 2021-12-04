@@ -38,4 +38,15 @@ class Day2Tests {
         val expectedPosition = Position(1965,1182)
         assertEquals(expectedPosition, newPosition)
     }
+
+    @Test
+    @DisplayName("Six commands should end up at position(15,60)")
+    fun should_have_aim_position_after_six_commands(){
+        val path = Paths.get("src/test/kotlin/Day2Small.txt")
+        val stringList = readStringListFromPath(path)
+        val commandList = stringList.map { parseSubmarineCommand(it) }
+        val newPosition = aimMoveSubmarine(commandList)
+        val expectedPosition = AimPosition(10,Position(15,60))
+        assertEquals(expectedPosition, newPosition)
+    }
 }
