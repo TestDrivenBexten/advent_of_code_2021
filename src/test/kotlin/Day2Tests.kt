@@ -49,4 +49,16 @@ class Day2Tests {
         val expectedPosition = AimPosition(10,Position(15,60))
         assertEquals(expectedPosition, newPosition)
     }
+
+    @Test
+    @DisplayName("1000 commands should give correct aim and position")
+    fun should_have_aim_position_after_1000_commands() {
+        val path = Paths.get("src/test/kotlin/Day2Big.txt")
+        val stringList = readStringListFromPath(path)
+        val commandList = stringList.map { parseSubmarineCommand(it) }
+        val newPosition = aimMoveSubmarine(commandList)
+        val expectedPosition = Position(1965,1_071_386)
+        val expectedAimPosition = AimPosition(1182, expectedPosition)
+        assertEquals(expectedAimPosition, newPosition)
+    }
 }
