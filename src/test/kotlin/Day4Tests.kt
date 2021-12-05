@@ -18,4 +18,18 @@ class Day4Tests {
         val score = scoreBoard(drawnList, board)
         assertEquals(4512,score)
     }
+
+    @Test
+    @DisplayName("Should solve bingo for multiple boards")
+    fun should_solve_for_multiple_boards(){
+        val path = Paths.get("src/test/kotlin/Day4Big.txt")
+        val stringList = readStringListFromPath(path)
+        val drawnNumberList = stringList[0].split(",").map { it.toInt() }
+        val boardList = createBoards(stringList.subList(2,stringList.size))
+        val (winningNumber, board) = winningBoardAndNumber(drawnNumberList, boardList)
+
+        val drawnList = drawnNumberList.takeWhile { it != winningNumber }.plus(winningNumber)
+        val score = scoreBoard(drawnList, board)
+        assertEquals(65325,score)
+    }
 }
