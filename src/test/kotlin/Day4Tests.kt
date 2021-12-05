@@ -13,9 +13,9 @@ class Day4Tests {
         val drawnNumberList = stringList[0].split(",").map { it.toInt() }
         val boardList = createBoards(stringList.subList(2,stringList.size))
         val (winningNumber, board) = winningBoardAndNumber(drawnNumberList, boardList)
-        println(winningNumber)
-        println(board)
 
-        assertEquals(0,1)
+        val drawnList = drawnNumberList.takeWhile { it != winningNumber }.plus(winningNumber)
+        val score = scoreBoard(drawnList, board)
+        assertEquals(4512,score)
     }
 }

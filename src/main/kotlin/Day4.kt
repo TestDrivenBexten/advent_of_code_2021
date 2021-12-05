@@ -34,3 +34,15 @@ fun winningBoardAndNumber(drawnList: List<Int>,
     }
     return Pair(0, boardList[0])
 }
+
+fun getUnmarkedNumbers(drawnList: List<Int>, board: Board): List<Int> {
+    val boardNumberList = board.flatten()
+    return boardNumberList.minus(drawnList.toSet())
+}
+
+fun scoreBoard(drawnList: List<Int>, board: Board): Int {
+    val unmarkedList = getUnmarkedNumbers(drawnList, board)
+    val winningNumber = drawnList.last()
+    val unmarkedSum = unmarkedList.sum()
+    return winningNumber * unmarkedSum
+}
