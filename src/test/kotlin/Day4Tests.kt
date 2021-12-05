@@ -56,16 +56,13 @@ class Day4Tests {
         val stringList = readStringListFromPath(path)
         val drawnNumberList = stringList[0].split(",").map { it.toInt() }
         val boardList = createBoards(stringList.subList(2,stringList.size))
-        val (number, board) = losingBoardAndNumber(drawnNumberList, boardList)
+        val (_, board) = losingBoardAndNumber(drawnNumberList, boardList)
 
-        val nextNumber = drawnNumberList.dropWhile { it != number }[1]
-        val drawnList = drawnNumberList.takeWhile { it != nextNumber }.plus(nextNumber)
-        val unmarkedSum = getUnmarkedNumbers(drawnList, board).sum()
-        println(scoreBoard(drawnList, board))
-        println(drawnList)
-        println(board)
-        println(nextNumber)
-        val score = nextNumber * unmarkedSum
-        assertEquals(1924,score)
+        val (winningNumber, winningBoard) =
+            winningBoardAndNumber(drawnNumberList, listOf(board))
+        val drawnList = drawnNumberList.takeWhile { it != winningNumber }.plus(winningNumber)
+        val unmarkedSum = getUnmarkedNumbers(drawnList, winningBoard).sum()
+        val score = winningNumber * unmarkedSum
+        assertEquals(4624,score) // too high
     }
 }
