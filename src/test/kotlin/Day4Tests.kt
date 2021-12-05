@@ -48,4 +48,24 @@ class Day4Tests {
         val score = nextNumber * unmarkedSum
         assertEquals(1924,score)
     }
+
+    @Test
+    @DisplayName("Should lose bingo for multiple boards")
+    fun should_lose_for_multiple_boards(){
+        val path = Paths.get("src/test/kotlin/Day4Big.txt")
+        val stringList = readStringListFromPath(path)
+        val drawnNumberList = stringList[0].split(",").map { it.toInt() }
+        val boardList = createBoards(stringList.subList(2,stringList.size))
+        val (number, board) = losingBoardAndNumber(drawnNumberList, boardList)
+
+        val nextNumber = drawnNumberList.dropWhile { it != number }[1]
+        val drawnList = drawnNumberList.takeWhile { it != nextNumber }.plus(nextNumber)
+        val unmarkedSum = getUnmarkedNumbers(drawnList, board).sum()
+        println(scoreBoard(drawnList, board))
+        println(drawnList)
+        println(board)
+        println(nextNumber)
+        val score = nextNumber * unmarkedSum
+        assertEquals(1924,score)
+    }
 }
