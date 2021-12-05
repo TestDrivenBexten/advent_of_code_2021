@@ -19,7 +19,7 @@ private fun findCommonBitList(binaryList: BinaryList): BitList {
     val commonBitList = columnBitList.map {
         val zeroCount = it.count { bit -> bit == 0 }
         val oneCount = numberCount - zeroCount
-        if (oneCount > zeroCount) 1 else 0
+        if (oneCount >= zeroCount) 1 else 0
     }
     return commonBitList
 }
@@ -42,11 +42,21 @@ fun calculatePowerConsumption(binaryList: BinaryList): Int {
     return gammaRate * epsilonRate
 }
 
-private fun calculateOxygenRating(binaryList: BinaryList): Int {
-    val commonBitList = findCommonBitList(binaryList)
-    val columnBitList = findColumnBitList(binaryList)
+private fun filterByColumnBit(column: Int,
+                              bit: Int, binaryList: BinaryList): BinaryList {
+    return binaryList.filter { bitList -> bitList[column] == bit }
+}
 
-    return 0
+private fun calculateOxygenRating(binaryList: BinaryList): Int {
+    val columnCount = binaryList[0].size
+
+    val filteredBinaryList = (0 until columnCount).fold(binaryList) { acc, column ->
+        val commonBitList = findCommonBitList(acc)
+        val commonBit = commonBitList[column]
+        filterByColumnBit(column, commonBit, acc)
+    }
+    val rawBinary = filteredBinaryList[0]
+    return binaryToDecimal(rawBinary)
 }
 
 private fun calculateScrubberRating(bitList: BitList): Int {

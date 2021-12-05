@@ -36,7 +36,7 @@ class Day3Tests {
         val path = Paths.get("src/test/kotlin/Day3Small.txt")
         val stringList = readStringListFromPath(path)
         val binaryList = stringList.map { parseBinary(it) }
-        val powerConsumption = calculateLifeSupportRating(binaryList)
-        assertEquals(230, powerConsumption)
+        val lifeSupportRating = calculateLifeSupportRating(binaryList)
+        assertEquals(230, lifeSupportRating)
     }
 }
