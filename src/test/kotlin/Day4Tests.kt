@@ -32,4 +32,20 @@ class Day4Tests {
         val score = scoreBoard(drawnList, board)
         assertEquals(65325,score)
     }
+
+    @Test
+    @DisplayName("Should lose bingo for small boards")
+    fun should_lose_for_small_boards(){
+        val path = Paths.get("src/test/kotlin/Day4Small.txt")
+        val stringList = readStringListFromPath(path)
+        val drawnNumberList = stringList[0].split(",").map { it.toInt() }
+        val boardList = createBoards(stringList.subList(2,stringList.size))
+        val (number, board) = losingBoardAndNumber(drawnNumberList, boardList)
+        println(number)
+        println(board)
+
+        val drawnList = drawnNumberList.takeWhile { it != number }.plus(number)
+        val score = scoreBoard(drawnList, board)
+        assertEquals(4512,score)
+    }
 }

@@ -35,6 +35,24 @@ fun winningBoardAndNumber(drawnList: List<Int>,
     return Pair(0, boardList[0])
 }
 
+fun losingBoardAndNumber(drawnList: List<Int>,
+                         boardList: List<Board>): Pair<Int, Board> {
+    val drawCount = drawnList.size
+    for(x in 5..drawCount) {
+        val checkList = drawnList.subList(0, x)
+        val winningBoard = boardList.find { boardHasBingo(checkList, it) }
+        if(winningBoard != null){
+            val newBoardList = boardList.filter { winningBoard != it }
+            return if (newBoardList.size > 1) {
+                losingBoardAndNumber(drawnList, newBoardList)
+            } else {
+                Pair(checkList.last(), newBoardList[0])
+            }
+        }
+    }
+    return Pair(0, boardList[0])
+}
+
 fun getUnmarkedNumbers(drawnList: List<Int>, board: Board): List<Int> {
     val boardNumberList = board.flatten()
     return boardNumberList.minus(drawnList.toSet())
