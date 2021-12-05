@@ -49,7 +49,6 @@ private fun filterByColumnBit(column: Int,
 
 private fun calculateOxygenRating(binaryList: BinaryList): Int {
     val columnCount = binaryList[0].size
-
     val filteredBinaryList = (0 until columnCount).fold(binaryList) { acc, column ->
         val commonBitList = findCommonBitList(acc)
         val commonBit = commonBitList[column]
@@ -59,14 +58,23 @@ private fun calculateOxygenRating(binaryList: BinaryList): Int {
     return binaryToDecimal(rawBinary)
 }
 
-private fun calculateScrubberRating(bitList: BitList): Int {
-    return 0
+private fun calculateScrubberRating(binaryList: BinaryList): Int {
+    val columnCount = binaryList[0].size
+    val filteredBinaryList = (0 until columnCount).fold(binaryList) { acc, column ->
+        if (acc.size > 1) {
+            val commonBitList = findCommonBitList(acc)
+            val infrequentBit = if (commonBitList[column] == 1) 0 else 1
+            filterByColumnBit(column, infrequentBit, acc)
+        } else {
+            acc
+        }
+    }
+    val rawBinary = filteredBinaryList[0]
+    return binaryToDecimal(rawBinary)
 }
 
 fun calculateLifeSupportRating(binaryList: BinaryList): Int {
-    val commonBitList = findCommonBitList(binaryList)
-    val infrequentBitList = commonBitList.map { if (it == 0) 1 else 0 }
     val oxygenRating = calculateOxygenRating(binaryList)
-    val scrubberRating = calculateScrubberRating(infrequentBitList)
-    return oxygenRating + scrubberRating
+    val scrubberRating = calculateScrubberRating(binaryList)
+    return oxygenRating * scrubberRating
 }
