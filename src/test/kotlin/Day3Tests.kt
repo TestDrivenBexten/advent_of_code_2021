@@ -47,6 +47,6 @@ class Day3Tests {
         val stringList = readStringListFromPath(path)
         val binaryList = stringList.map { parseBinary(it) }
         val lifeSupportRating = calculateLifeSupportRating(binaryList)
-        assertEquals(230, lifeSupportRating)
+        assertEquals(7928162, lifeSupportRating)
     }
 }
