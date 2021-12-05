@@ -39,4 +39,14 @@ class Day3Tests {
         val lifeSupportRating = calculateLifeSupportRating(binaryList)
         assertEquals(230, lifeSupportRating)
     }
+
+    @Test
+    @DisplayName("Should determine life support rating from 1000 12-bit numbers")
+    fun should_find_life_support_for_1000_12_bit_numbers(){
+        val path = Paths.get("src/test/kotlin/Day3Big.txt")
+        val stringList = readStringListFromPath(path)
+        val binaryList = stringList.map { parseBinary(it) }
+        val lifeSupportRating = calculateLifeSupportRating(binaryList)
+        assertEquals(230, lifeSupportRating)
+    }
 }
