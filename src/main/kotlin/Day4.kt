@@ -13,7 +13,24 @@ fun createBoards(rawRowList: List<String>): List<Board> {
     }
 }
 
+private fun boardHasBingo(drawnList: List<Int>, board: Board): Boolean {
+    val anyRowHasBingo = board.any { row -> drawnList.containsAll(row) }
+    val columnList = (board.indices).map { column ->
+        board.map { row -> row[column] }
+    }
+    val anyColumnHasBingo = columnList.any { drawnList.containsAll(it) }
+    return anyRowHasBingo || anyColumnHasBingo
+}
+
 fun winningBoardAndNumber(drawnList: List<Int>,
                           boardList: List<Board>): Pair<Int, Board> {
+    val drawCount = drawnList.size
+    for(x in 5..drawCount) {
+        val checkList = drawnList.subList(0, x)
+        val winningBoard = boardList.find { boardHasBingo(checkList, it) }
+        if(winningBoard != null){
+            return Pair(checkList.last(), winningBoard)
+        }
+    }
     return Pair(0, boardList[0])
 }
