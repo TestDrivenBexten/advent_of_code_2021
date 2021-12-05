@@ -41,11 +41,11 @@ class Day4Tests {
         val drawnNumberList = stringList[0].split(",").map { it.toInt() }
         val boardList = createBoards(stringList.subList(2,stringList.size))
         val (number, board) = losingBoardAndNumber(drawnNumberList, boardList)
-        println(number)
-        println(board)
 
-        val drawnList = drawnNumberList.takeWhile { it != number }.plus(number)
-        val score = scoreBoard(drawnList, board)
-        assertEquals(4512,score)
+        val nextNumber = drawnNumberList.dropWhile { it != number }[1]
+        val drawnList = drawnNumberList.takeWhile { it != nextNumber }.plus(nextNumber)
+        val unmarkedSum = getUnmarkedNumbers(drawnList, board).sum()
+        val score = nextNumber * unmarkedSum
+        assertEquals(1924,score)
     }
 }
