@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import java.nio.file.Paths
+import kotlin.test.assertEquals
 
 @DisplayName("Day 5 Tests")
 class Day5Tests {
@@ -19,6 +20,21 @@ class Day5Tests {
         val path = Paths.get("src/test/kotlin/Day5Small.txt")
         val stringList = readStringListFromPath(path)
         val lineList = stringList.map { parseLine(it) }
-        println(lineList)
+
+        val ventMap = buildVentMap(lineList)
+        val intersectCount = ventMap.values.count { it > 1 }
+        assertEquals(5, intersectCount)
+    }
+
+    @Test
+    @DisplayName("Should solve for multiple lines")
+    fun should_solve_for_multiple_lines() {
+        val path = Paths.get("src/test/kotlin/Day5Big.txt")
+        val stringList = readStringListFromPath(path)
+        val lineList = stringList.map { parseLine(it) }
+
+        val ventMap = buildVentMap(lineList)
+        val intersectCount = ventMap.values.count { it > 1 }
+        assertEquals(7380, intersectCount)
     }
 }
