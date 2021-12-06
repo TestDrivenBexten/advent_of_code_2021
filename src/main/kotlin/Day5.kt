@@ -1,3 +1,4 @@
+import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 
@@ -24,7 +25,33 @@ private fun buildPointList(line: Line): List<Point> {
     }
 }
 
+private fun buildDiagonalPointList(line: Line): List<Point> {
+    val (point1, point2) = line
+    val (x1, y1) = point1
+    val (x2, y2) = point2
+    return if(abs(x1 - x2) == abs(y1 - y2)) {
+        return if(x1 > x2 && y1 < y2) {
+            (x1 downTo x2).mapIndexed { index, x -> Point(x, y1 + index) }
+        } else if(x1 > x2 && y1 > y2) {
+            (x1 downTo x2).mapIndexed { index, x -> Point(x, y1 - index) }
+        } else if(x1 < x2 && y1 < y2) {
+            (x1..x2).mapIndexed { index, x -> Point(x, y1 + index) }
+        } else {
+            (x1..x2).mapIndexed { index, x -> Point(x, y1 - index)}
+        }
+    } else {
+        listOf()
+    }
+}
+
 fun buildVentMap(lineList: List<Line>): VentMap {
     val pointList = lineList.flatMap { buildPointList(it) }
     return pointList.groupingBy { it }.eachCount()
+}
+
+fun buildDiagonalVentMap(lineList: List<Line>): VentMap {
+    val diagonalPointList = lineList.flatMap { buildDiagonalPointList(it) }
+    val pointList = lineList.flatMap { buildPointList(it) }
+    val allPointList = diagonalPointList + pointList
+    return allPointList.groupingBy { it }.eachCount()
 }

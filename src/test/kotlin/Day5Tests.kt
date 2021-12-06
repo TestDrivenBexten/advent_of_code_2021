@@ -37,4 +37,28 @@ class Day5Tests {
         val intersectCount = ventMap.values.count { it > 1 }
         assertEquals(7380, intersectCount)
     }
+
+    @Test
+    @DisplayName("Should solve diagonal for few lines")
+    fun should_solve_diagonal_for_few_lines() {
+        val path = Paths.get("src/test/kotlin/Day5Small.txt")
+        val stringList = readStringListFromPath(path)
+        val lineList = stringList.map { parseLine(it) }
+
+        val ventMap = buildDiagonalVentMap(lineList)
+        val intersectCount = ventMap.values.count { it > 1 }
+        assertEquals(12, intersectCount)
+    }
+
+    @Test
+    @DisplayName("Should solve diagonal for multiple lines")
+    fun should_solve_diagonal_for_multiple_lines() {
+        val path = Paths.get("src/test/kotlin/Day5Big.txt")
+        val stringList = readStringListFromPath(path)
+        val lineList = stringList.map { parseLine(it) }
+
+        val ventMap = buildDiagonalVentMap(lineList)
+        val intersectCount = ventMap.values.count { it > 1 }
+        assertEquals(21373, intersectCount)
+    }
 }
