@@ -22,3 +22,17 @@ fun advanceByDays(fishList: List<LanternFish>, days: Int): List<LanternFish> {
         advanceByDays(newFishList, days - 1)
     }
 }
+
+fun countFishByDays(fishList: List<LanternFish>, days: Int): Long {
+    var startDay = days % 7
+    val childrenList = advanceByDays(fishList, startDay)
+    var fishCount = childrenList.size.toLong()
+    while(startDay < days){
+        println(fishCount)
+        println(startDay)
+        fishCount = ((fishCount - 1) * 2) + 1
+        startDay += 7
+    }
+    println(fishCount)
+    return fishCount
+}
