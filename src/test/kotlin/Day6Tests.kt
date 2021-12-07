@@ -15,4 +15,13 @@ class Day6Tests {
         assertEquals(5934,newFishList.size)
     }
 
+    @Test
+    @DisplayName("Should solve for large fish pool")
+    fun should_solve_for_large_fish_pool() {
+        val path = Paths.get("src/test/kotlin/Day6Big.txt")
+        val stringList = readStringListFromPath(path)[0].split(",")
+        val fishList = stringList.map { LanternFish(it.toInt(), true) }
+        val newFishList = advanceByDays(fishList, 80)
+        assertEquals(343441,newFishList.size)
+    }
 }
