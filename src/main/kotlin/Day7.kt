@@ -5,5 +5,8 @@ fun calculateFuelToPosition(positionList: List<Int>, position: Int): Int {
 }
 
 fun calculateFuel(positionList: List<Int>): Int {
-    return 0
+    val min = positionList.minOrNull() ?: Int.MAX_VALUE
+    val max = positionList.maxOrNull() ?: Int.MIN_VALUE
+    val fuelSpentList = (min..max).map { Pair(it, calculateFuelToPosition(positionList, it)) }
+    return fuelSpentList.minByOrNull { it.second }?.second ?: 0
 }
