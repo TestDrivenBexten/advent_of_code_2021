@@ -25,4 +25,14 @@ class Day7Tests {
         assertEquals(37, fuelSpent)
     }
 
+    @Test
+    @DisplayName("Should solve for many crab submarines")
+    fun should_solve_for_many_crab_submarines() {
+        val path = Paths.get("src/test/kotlin/Day7Big.txt")
+        val stringList = readStringListFromPath(path)[0].split(",")
+        val positionList = stringList.map { it.toInt() }
+        val fuelSpent = calculateFuel(positionList)
+        assertEquals(345035, fuelSpent)
+    }
+
 }
