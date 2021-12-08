@@ -1,9 +1,7 @@
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.Timeout
 import java.nio.file.Paths
-import java.util.concurrent.TimeUnit
 
 @DisplayName("Day 6 Tests")
 class Day6Tests {

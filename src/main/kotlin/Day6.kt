@@ -1,6 +1,24 @@
 
 data class LanternFish(val age: Int, val oldFish: Boolean)
 
+typealias AgeCount = Map<Int,Long> // Age to Count
+
+fun mergeMap(map1: AgeCount, map2: AgeCount): AgeCount {
+    return (map1.keys + map2.keys).associateWith { key ->
+        listOfNotNull(map1[key], map2[key]).sum()
+    }
+}
+
+fun advanceDayCount(fishAgeMap: AgeCount): AgeCount {
+    val ageCountList = fishAgeMap.entries.map { (key, value) ->
+        when(key){
+            0 -> mapOf(6 to value, 8 to value)
+            else -> mapOf(key - 1 to value)
+        }
+    }
+    return ageCountList.reduce { acc, ageMap -> mergeMap(acc, ageMap)}
+}
+
 fun advanceDay(fishList: List<LanternFish>): List<LanternFish> {
     fun ageFish(fish: LanternFish): List<LanternFish> {
         return if(fish.age == 0){
@@ -24,15 +42,17 @@ fun advanceByDays(fishList: List<LanternFish>, days: Int): List<LanternFish> {
 }
 
 fun countFishByDays(fishList: List<LanternFish>, days: Int): Long {
-    var startDay = days % 7
-    val childrenList = advanceByDays(fishList, startDay)
-    var fishCount = childrenList.size.toLong()
-    while(startDay < days){
-        println(fishCount)
-        println(startDay)
-        fishCount = ((fishCount - 1) * 2) + 1
-        startDay += 7
+    val ageGroupCountInt = fishList.groupingBy { it.age }.eachCount()
+    val ageGroupCount = ageGroupCountInt.entries.associate {
+        (key, value) -> key to value.toLong()
     }
-    println(fishCount)
-    return fishCount
+    var dayCountdown = days
+    var ageCount = ageGroupCount
+    while(dayCountdown > 0) {
+        println(dayCountdown)
+        ageCount = advanceDayCount(ageCount)
+        println(ageCount)
+        dayCountdown--
+    }
+    return ageCount.values.sum()
 }
