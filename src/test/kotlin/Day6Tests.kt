@@ -34,4 +34,14 @@ class Day6Tests {
         val fishCount = countFishByDays(fishList, 256)
         assertEquals(26_984_457_539,fishCount)
     }
+
+    @Test
+    @DisplayName("Should solve for large immortal fish pool")
+    fun should_solve_for_large_immortal_fish_pool() {
+        val path = Paths.get("src/test/kotlin/Day6Big.txt")
+        val stringList = readStringListFromPath(path)[0].split(",")
+        val fishList = stringList.map { LanternFish(it.toInt(), true) }
+        val fishCount = countFishByDays(fishList, 256)
+        assertEquals(1_569_108_373_832,fishCount)
+    }
 }

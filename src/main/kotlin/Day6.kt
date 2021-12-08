@@ -49,9 +49,7 @@ fun countFishByDays(fishList: List<LanternFish>, days: Int): Long {
     var dayCountdown = days
     var ageCount = ageGroupCount
     while(dayCountdown > 0) {
-        println(dayCountdown)
         ageCount = advanceDayCount(ageCount)
-        println(ageCount)
         dayCountdown--
     }
     return ageCount.values.sum()
