@@ -25,4 +25,23 @@ class Day8Tests {
         val count = countUniqueOutputList(outputList)
         assertEquals(539, count)
     }
+
+    @Test
+    @DisplayName("Should find sum of small outputs")
+    fun should_find_sum_of_small_outputs() {
+        val path = Paths.get("src/test/kotlin/Day8Small.txt")
+        val stringList = readStringListFromPath(path)
+        val inputList = stringList.filterIndexed { index, _ -> index % 2 == 0 }
+        val outputList = stringList.filterIndexed { index, _ -> index % 2 == 1 }
+        val combinedList = inputList.zip(outputList)
+        val inputOutList = combinedList.map { (input, output) ->
+            val splitInputList = input.split(" ").dropLast(1)
+            val splitOutputList = output.split(" ")
+            InputOutput(splitInputList, splitOutputList)
+        }
+        println(inputOutList)
+
+        val outputSum = decipherDigits(inputOutList).sum()
+        assertEquals(61229, outputSum)
+    }
 }

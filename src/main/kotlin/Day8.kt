@@ -12,3 +12,9 @@ fun countUniqueOutputList(outputList: List<String>): Int {
     }
     return count
 }
+
+data class InputOutput(val inputList: List<String>, val outputList: List<String>)
+
+fun decipherDigits(outputList: List<InputOutput>): List<Int> {
+    return listOf(0)
+}
