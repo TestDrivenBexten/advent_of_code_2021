@@ -30,9 +30,6 @@ fun decipherInputOutput(inputOutput: InputOutput): Int {
     val sevenInput = findInputOfLength(allList,3)[0].toList().toSet()
     val eightInput = findInputOfLength(allList,7)[0].toList().toSet()
 
-    // Find top character
-    val topCharacter = sevenInput.minus(oneInput).toList()[0]
-
     // Gather 0, 6 and 9 candidates
     val sixDigitCandidateList = allList.filter { it.length == 6 }.map{ it.toList().toSet() }
     val sixInput = sixDigitCandidateList.find {
@@ -40,7 +37,7 @@ fun decipherInputOutput(inputOutput: InputOutput): Int {
     }?.toList()?.toSet()
 
     // Find more characters
-    val upperRightCharacter = sevenInput.minus(sixInput).toList()[0]
+    val upperRightCharacter = sevenInput.subtract(sixInput!!.toList().toSet()).toList()[0]
     val bottomRightCharacter = oneInput.minus(upperRightCharacter).toList()[0]
 
     // Find 2, 3 and 5
@@ -56,7 +53,7 @@ fun decipherInputOutput(inputOutput: InputOutput): Int {
     }?.toList()?.toSet()
 
     // Find bottom left character
-    val bottomLeftCharacter = sixInput!!.minus(fiveInput).toList()[0]
+    val bottomLeftCharacter = sixInput.subtract(fiveInput!!.toList().toSet()).toList()[0]
 
     // Find 0 and 9
     val zeroInput = sixDigitCandidateList.find {
@@ -65,6 +62,21 @@ fun decipherInputOutput(inputOutput: InputOutput): Int {
     val nineInput = sixDigitCandidateList.find {
         !it.contains(bottomLeftCharacter)
     }?.toList()?.toSet()
+
+//    println(sixDigitCandidateList)
+//
+//    println(oneInput.sorted())
+//    println(twoInput?.sorted())
+//    println(threeInput?.sorted())
+//    println(fourInput.sorted())
+//    println(fiveInput?.sorted())
+//    println(sixInput.sorted())
+//    println(sevenInput.sorted())
+//    println(eightInput.sorted())
+//    println(nineInput?.sorted())
+//    println(upperRightCharacter)
+//    println(bottomRightCharacter)
+//    println(bottomLeftCharacter)
 
     fun convertCharSetToDigit(charSet: Set<Char>): Int {
         return when(charSet) {
@@ -86,9 +98,7 @@ fun decipherInputOutput(inputOutput: InputOutput): Int {
         val charSet = rawString.toSet()
         convertCharSetToDigit(charSet)
     }
-    println(rawNumberList)
-
-    return 0
+    return rawNumberList.joinToString("").toInt()
 }
 
 fun decipherDigits(inputOutputList: List<InputOutput>): List<Int> {
