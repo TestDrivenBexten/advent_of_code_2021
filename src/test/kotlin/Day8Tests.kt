@@ -51,9 +51,26 @@ class Day8Tests {
             val splitOutputList = output.split(" ")
             InputOutput(splitInputList, splitOutputList)
         }
-        println(inputOutList)
 
         val outputSum = decipherDigits(inputOutList).sum()
         assertEquals(61229, outputSum)
+    }
+
+    @Test
+    @DisplayName("Should find sum of many outputs")
+    fun should_find_sum_of_many_outputs() {
+        val path = Paths.get("src/test/kotlin/Day8Big.txt")
+        val stringList = readStringListFromPath(path)
+        val inputList = stringList.map { it.split("|")[0] }
+        val outputList = stringList.map { it.split("|")[1] }
+        val combinedList = inputList.zip(outputList)
+        val inputOutList = combinedList.map { (input, output) ->
+            val splitInputList = input.split(" ").dropLast(1)
+            val splitOutputList = output.split(" ").drop(1)
+            InputOutput(splitInputList, splitOutputList)
+        }
+
+        val outputSum = decipherDigits(inputOutList).sum()
+        assertEquals(1084606, outputSum)
     }
 }

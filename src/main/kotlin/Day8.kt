@@ -63,21 +63,6 @@ fun decipherInputOutput(inputOutput: InputOutput): Int {
         !it.contains(bottomLeftCharacter)
     }?.toList()?.toSet()
 
-//    println(sixDigitCandidateList)
-//
-//    println(oneInput.sorted())
-//    println(twoInput?.sorted())
-//    println(threeInput?.sorted())
-//    println(fourInput.sorted())
-//    println(fiveInput?.sorted())
-//    println(sixInput.sorted())
-//    println(sevenInput.sorted())
-//    println(eightInput.sorted())
-//    println(nineInput?.sorted())
-//    println(upperRightCharacter)
-//    println(bottomRightCharacter)
-//    println(bottomLeftCharacter)
-
     fun convertCharSetToDigit(charSet: Set<Char>): Int {
         return when(charSet) {
             zeroInput -> 0
