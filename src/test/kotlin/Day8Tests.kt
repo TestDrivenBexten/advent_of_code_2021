@@ -27,6 +27,18 @@ class Day8Tests {
     }
 
     @Test
+    @DisplayName("Should find output of single input")
+    fun should_find_output_of_single_input() {
+        val inputList = listOf("be","cfbegad","cbdgef","fgaecd","cgeb","fdcge",
+                                "agebfd","fecdb","fabcd","edb")
+        val outputList = listOf("fdgacbe","cefdb","cefbgd","gcbe")
+        val inputOutput = InputOutput(inputList, outputList)
+
+        val outputSum = decipherDigits(listOf(inputOutput)).sum()
+        assertEquals(8394, outputSum)
+    }
+
+    @Test
     @DisplayName("Should find sum of small outputs")
     fun should_find_sum_of_small_outputs() {
         val path = Paths.get("src/test/kotlin/Day8Small.txt")
