@@ -35,7 +35,7 @@ class Day9Tests {
 
         val lowPointList = findLowPoints(heightMap)
         val riskSum = lowPointList.sumOf { it + 1 }
-        assertEquals(15,riskSum)
+        assertEquals(468,riskSum)
     }
 
     @Test
