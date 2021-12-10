@@ -49,8 +49,8 @@ class Day9Tests {
             }
         }
 
-        val lowPointList = findLowPoints(heightMap)
-        val riskSum = lowPointList.sumOf { it + 1 }
-        assertEquals(15,riskSum)
+        val basinList = findBasinSizes(heightMap)
+        println(basinList.sum())
+        assertEquals(13,0)
     }
 }

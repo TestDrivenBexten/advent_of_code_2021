@@ -1,3 +1,4 @@
+import kotlin.math.abs
 
 data class HeightPoint(val height: Int, val x: Int, val y: Int)
 typealias HeightMap = List<List<Int>>
@@ -12,12 +13,16 @@ private fun findNeighborPoints(point: HeightPoint,
         leftNeighbor, rightNeighbor)
 }
 
-fun findLowPoints(heightMap: HeightMap): List<Int> {
-    val pointSet = heightMap.flatMapIndexed { indexRow, rowList ->
+private fun heightMapToPointSet(heightMap: HeightMap): Set<HeightPoint> {
+    return heightMap.flatMapIndexed { indexRow, rowList ->
         rowList.mapIndexed { indexCol, cellValue ->
             HeightPoint(cellValue, indexCol, indexRow)
         }
     }.toSet()
+}
+
+fun findLowPoints(heightMap: HeightMap): List<Int> {
+    val pointSet = heightMapToPointSet(heightMap)
     return pointSet.map { heightPoint ->
             val neighborList = findNeighborPoints(heightPoint, pointSet)
             val heightList = neighborList.map { it.height }
@@ -31,5 +36,34 @@ fun findLowPoints(heightMap: HeightMap): List<Int> {
 }
 
 fun findBasinSizes(heightMap: HeightMap): List<Int> {
-    return listOf()
+    val basinList = mutableListOf<List<HeightPoint>>()
+    val pointSet = heightMapToPointSet(heightMap).toMutableSet()
+    while(pointSet.isNotEmpty()){
+        val basin = mutableListOf<HeightPoint>()
+        val point = pointSet.toList()[0]
+        basin.add(point)
+        if(point.height != 9){
+            var hasNeighbor = true
+            while(hasNeighbor) {
+                val neighbor = pointSet.find { (it.x == point.x &&
+                        abs(it.y - point.y) == 1) ||
+                        (it.y == point.y &&
+                                abs(it.x - point.x) == 1)
+                }
+                if(neighbor == null){
+                    hasNeighbor = false
+                } else if (neighbor.height == 9){
+                    pointSet.remove(neighbor)
+                } else {
+                    basin.add(neighbor)
+                    pointSet.remove(neighbor)
+                }
+            }
+        } else {
+            pointSet.remove(point)
+        }
+        basinList.add(basin)
+        pointSet.removeAll(basin.toSet())
+    }
+    return basinList.filter { it.isNotEmpty() }.map { it.size }
 }
