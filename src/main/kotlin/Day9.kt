@@ -41,8 +41,8 @@ fun findBasinSizes(heightMap: HeightMap): List<Int> {
     while(pointSet.isNotEmpty()){
         val basin = mutableListOf<HeightPoint>()
         val point = pointSet.toList()[0]
-        basin.add(point)
         if(point.height != 9){
+            basin.add(point)
             var hasNeighbor = true
             while(hasNeighbor) {
                 val neighbor = pointSet.find { (it.x == point.x &&

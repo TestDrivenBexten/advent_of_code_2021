@@ -50,7 +50,13 @@ class Day9Tests {
         }
 
         val basinList = findBasinSizes(heightMap)
-        println(basinList.sum())
-        assertEquals(13,0)
+        println(basinList)
+        val threeLargestBasins = basinList.sorted().reversed().take(3)
+        println(threeLargestBasins)
+        val basinProduct = threeLargestBasins.fold(1) { acc, size ->
+            acc * size
+        }
+        println(basinProduct)
+        assertEquals(1134,0)
     }
 }
