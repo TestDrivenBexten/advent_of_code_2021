@@ -11,8 +11,6 @@ fun findLowPoints(heightMap: HeightMap): List<Int> {
             val neighborList = listOfNotNull(upperNeighbor, lowerNeighbor,
                                         leftNeighbor, rightNeighbor)
             val neighborMin = neighborList.minOrNull()
-            println(neighborList)
-            println(neighborMin)
             if(neighborMin != null && cellValue < neighborMin){
                 cellValue
             } else {
