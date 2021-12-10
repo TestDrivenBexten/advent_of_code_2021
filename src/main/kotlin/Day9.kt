@@ -45,18 +45,16 @@ fun findBasinSizes(heightMap: HeightMap): List<Int> {
             basin.add(point)
             var hasNeighbor = true
             while(hasNeighbor) {
-                val neighbor = pointSet.find { (it.x == point.x &&
+                val neighborList = pointSet.filter { (it.x == point.x &&
                         abs(it.y - point.y) == 1) ||
                         (it.y == point.y &&
                                 abs(it.x - point.x) == 1)
                 }
-                if(neighbor == null){
+                if(neighborList.isEmpty()){
                     hasNeighbor = false
-                } else if (neighbor.height == 9){
-                    pointSet.remove(neighbor)
                 } else {
-                    basin.add(neighbor)
-                    pointSet.remove(neighbor)
+                    pointSet.removeAll(neighborList.toSet())
+                    basin.addAll(neighborList.filter { it.height != 9 })
                 }
             }
         } else {
