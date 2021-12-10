@@ -19,3 +19,7 @@ fun findLowPoints(heightMap: HeightMap): List<Int> {
         }
     }.flatten().filter { it != Int.MAX_VALUE }
 }
+
+fun findBasinSizes(heightMap: HeightMap): List<Int> {
+    return listOf()
+}

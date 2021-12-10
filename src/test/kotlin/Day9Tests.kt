@@ -37,4 +37,20 @@ class Day9Tests {
         val riskSum = lowPointList.sumOf { it + 1 }
         assertEquals(15,riskSum)
     }
+
+    @Test
+    @DisplayName("Should solve for small basin map")
+    fun should_solve_small_basin_map(){
+        val path = Paths.get("src/test/kotlin/Day9Small.txt")
+        val stringList = readStringListFromPath(path)
+        val heightMap = stringList.map { string ->
+            string.toCharArray().map {
+                    char -> char.digitToInt()
+            }
+        }
+
+        val lowPointList = findLowPoints(heightMap)
+        val riskSum = lowPointList.sumOf { it + 1 }
+        assertEquals(15,riskSum)
+    }
 }
